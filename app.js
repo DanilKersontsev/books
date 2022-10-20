@@ -4,10 +4,10 @@ const bookdata = document.querySelector('#mytable')
 const authorin = document.querySelector('#author')
 const ISBNin = document.querySelector('#ISBN')
 
-
+bookdata.addEventListener('click', deletebook)
 form.addEventListener('submit', addbook)
 
-function addbook(e) {
+function addbook(e){
     const row = bookdata.insertRow(-1)
     const cell1 = row.insertCell(0)
     const cell2 = row.insertCell(1)
@@ -20,6 +20,13 @@ function addbook(e) {
     cell2.innerHTML = authorin.value
     cell3.innerHTML = ISBNin.value
     cell4.appendChild(a)
+}
+function deletebook(e){
+    if(e.target.textContent == 'X'){
+        if(confirm('Are you sure to delete this book?')){
+            e.target.parentElement.parentElement.remove()
+        }
+    }
 }
 
 
