@@ -20,13 +20,24 @@ function addbook(e){
     cell2.innerHTML = authorin.value
     cell3.innerHTML = ISBNin.value
     cell4.appendChild(a)
+    const bookslists = [titlein.value, authorin.value, ISBNin.value]
+    addbookLS(bookslists)
 }
 function deletebook(e){
     if(e.target.textContent == 'X'){
         if(confirm('Are you sure to delete this book?')){
-            e.target.parentElement.parentElement.remove()
         }
     }
+}
+function addbookLS(book) {
+    let books
+    if(localStorage.getItem('book') === null){
+        books = []
+    } else {
+        books = JSON.parse(localStorage.getItem('book'))
+    }
+    books.push(book)
+    localStorage.setItem('book', JSON.stringify(books))
 }
 
 
