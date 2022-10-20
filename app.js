@@ -26,6 +26,14 @@ function addbook(e){
 function deletebook(e){
     if(e.target.textContent == 'X'){
         if(confirm('Are you sure to delete this book?')){
+            e.target.parentElement.parentElement.remove()
+            let bookIsbn = e.target.parentElement.previousElementSibling
+            let bookAuthor = bookIsbn.previousElementSibling
+            let bookTitle = bookAuthor.previousElementSibling
+            let book = [bookTitle.textContent, bookAuthor.textContent, bookIsbn.textContent]
+
+            deleteBookLS(book)
+
         }
     }
 }
@@ -37,6 +45,20 @@ function addbookLS(book) {
         books = JSON.parse(localStorage.getItem('book'))
     }
     books.push(book)
+    localStorage.setItem('book', JSON.stringify(books))
+}
+function deleteBookLS(book) {
+    let books
+    if(localStorage.getItem('book') === null){
+        books = []
+    } else {
+        books = JSON.parse(localStorage.getItem('book'))
+    }
+    books.forEach((bookLS, bookIndex) => {
+        if(JSON.stringify(bookLS) === JSON.stringify(book)){
+            books.splice(bookIndex, 1)
+        }
+    })
     localStorage.setItem('book', JSON.stringify(books))
 }
 
